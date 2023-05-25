@@ -2,6 +2,7 @@
 import logging
 import datetime
 import os
+import sys
 
 
 # should be done before to use any logging method
@@ -19,7 +20,7 @@ def setup(name, level=logging.INFO):
     """
     To set-up as many loggers as you want
     """
-
+    logging.getLogger().addHandler(logging.StreamHandler())
     logger = logging.getLogger(name)
     logger.setLevel(level)
 
@@ -27,12 +28,12 @@ def setup(name, level=logging.INFO):
 
 
 def generate_name(path):
-    filename = path + "\\" + str(datetime.date.today()) + "_Logs"
+    filename = path + str(datetime.date.today()) + "_Logs"
 
     i = 1
     filename_temp = filename
     while True:
-        if not os.path.isfile(filename_temp + ".log"):
+        if not os.path.isfile(filename_temp):
             filename = filename_temp
             break
         else:

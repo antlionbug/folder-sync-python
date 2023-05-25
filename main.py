@@ -2,11 +2,11 @@ import os
 import sys
 import argparse
 
+from scheduler import SyncScheduler
+
 sys.path.append(".")
 root_path = os.getcwd()
 sys.path.insert(0, root_path)
-
-import logger.logger as log
 
 if __name__ == "__main__":
     try:
@@ -58,14 +58,9 @@ if __name__ == "__main__":
         try:
             os.path.isdir(log_path)
         except TypeError:
-            log_path = "./logger"
+            log_path = "./logger/"
 
-        log_file_path = log.generate_name(log_path)
-        log.initial_configuration(log_file_path)
-        logger = log.setup(__name__)
-
-
-
+        syncer = SyncScheduler(source_path, replica_path, daily_sync, sync_period, log_path)
 
     except Exception as e:
         print("ERROR OCCURRED : {}".format(e))
