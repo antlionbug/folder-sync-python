@@ -38,7 +38,9 @@ if __name__ == "__main__":
         source_path = args.source_path
         replica_path = args.replica_path
         daily_sync = args.daily_sync
-        sync_period = int(args.sync_period)
+        sync_period = args.sync_period
+        if sync_period:
+            sync_period = int(sync_period)
         log_path = args.log_path
 
         assert os.path.isdir(

@@ -5,7 +5,7 @@ from FileSyncer import FileSyncer
 
 
 def parse_daily(daily_sync):
-    return ",".split(daily_sync)
+    return daily_sync.split(",")
 
 
 class SyncScheduler:
@@ -13,7 +13,7 @@ class SyncScheduler:
         self.source = source
         self.replica = replica
         self.file_syncer = FileSyncer(source, replica, log_path)
-        # self.run_thread()
+        self.run_thread()
         if daily_sync:
             self.daily_sync = parse_daily(daily_sync)
             self.run_daily()
