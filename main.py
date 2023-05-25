@@ -7,8 +7,6 @@ root_path = os.getcwd()
 sys.path.insert(0, root_path)
 
 import logger.logger as log
-log.initial_configuration()
-logger = log.setup(__name__)
 
 if __name__ == "__main__":
     try:
@@ -55,7 +53,18 @@ if __name__ == "__main__":
         elif daily_sync or sync_period:
             pass
         else:
-            sync_period = 6
+            sync_period = 360
+
+        try:
+            os.path.isdir(log_path)
+        except TypeError:
+            log_path = "./logger"
+
+        log_file_path = log.generate_name(log_path)
+        log.initial_configuration(log_file_path)
+        logger = log.setup(__name__)
+
+
 
 
     except Exception as e:
